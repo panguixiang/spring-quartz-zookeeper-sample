@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shengbo.quartz.dao.QuartzBeanMapper">
+	
+	<select id="list" resultType="com.shengbo.quartz.entity.JobBean">
+		<![CDATA[
+			SELECT 
+				id,job_name as jobName,
+				trigger_name as triggerName,
+				class_package as classPackage,
+				remarks,
+				cron
+			FROM 
+				tab_yilai_quartz_bean 
+		 ]]>
+	</select>
+	
+	<insert id="add" parameterType="com.shengbo.quartz.entity.JobBean">
+		<![CDATA[
+			insert into  
+				tab_yilai_quartz_bean(id,job_name,trigger_name,class_package,cron,remarks) 
+			values(
+			#{job.id,jdbcType=VARCHAR},#{job.jobName,jdbcType=VARCHAR},
+			#{job.triggerName,jdbcType=VARCHAR},#{job.classPackage,jdbcType=VARCHAR},
+			#{job.cron,jdbcType=VARCHAR},#{job.remarks,jdbcType=VARCHAR})
+		 ]]>
+	</insert>
+	
+	<delete id="remove" parameterType="string">
+		<![CDATA[
+			delete from tab_yilai_quartz_bean where id = #{id}
+		 ]]>
+	</delete>
+	
+	
+	<select id="getById" resultType="com.shengbo.quartz.entity.JobBean">
+		<![CDATA[
+			SELECT 
+				id,job_name as jobName,
+				trigger_name as triggerName,
+				class_package as classPackage,
+				remarks,
+				cron
+			FROM 
+				tab_yilai_quartz_bean where id = #{id}
+		 ]]>
+	</select>
+	
+</mapper>
